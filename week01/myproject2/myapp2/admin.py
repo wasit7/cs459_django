@@ -5,10 +5,10 @@ class CustomerAdmin(admin.ModelAdmin):
 	#exclude=['date_of_birth']
 	list_display=[f.name for f in Customer._meta.fields]
 class CarAdmin(admin.ModelAdmin):
-	fields = ['model', 'milage', 'ppd', 'image']
+	list_display = ['model', 'milage', 'ppd']
 class RentAdmin(admin.ModelAdmin):
 	list_display=[f.name for f in Rent._meta.fields]
-	list_editable=['start','stop']
+	list_editable=['start','stop','car']
 
 
 admin.site.register(Customer,CustomerAdmin)
