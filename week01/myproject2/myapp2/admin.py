@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Customer, Car, Rent
+from .models import Customer, Car, Rent
 
 class CustomerAdmin(admin.ModelAdmin):
 	#exclude=['date_of_birth']
