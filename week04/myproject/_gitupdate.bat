@@ -1,3 +1,3 @@
 git add -A
-git commit -m "gitupdate"
+git commit -m "gitupdate week04"
 git push
