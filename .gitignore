@@ -93,3 +93,4 @@ ENV/
 
 #django
 migrations/
+db.sqlite3
