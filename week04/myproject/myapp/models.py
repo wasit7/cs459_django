@@ -23,5 +23,5 @@ class Rent(models.Model):
 	rent_date=models.DateTimeField( default=timezone.now )
 	return_date=models.DateTimeField( default=timezone.now )
 	cost=models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
-	Car = models.ForeignKey("Car", on_delete=models.SET_NULL, blank=True,null=True)
-	Customer = models.ForeignKey("Customer", on_delete=models.SET_NULL, blank=True,null=True)
+	car = models.ForeignKey("Car", on_delete=models.SET_NULL, blank=True,null=True)
+	customer = models.ForeignKey("Customer", on_delete=models.SET_NULL, blank=True,null=True)
