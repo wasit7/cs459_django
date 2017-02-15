@@ -92,6 +92,8 @@ ENV/
 *.pyc
 
 #django
-migrations/
-db.sqlite3
 *.pyc
+db.sqlite3
+!/migrations
+/migrations/*
+!/foo/__init__.py
