@@ -22,3 +22,8 @@ urlpatterns = [
     url(r'^blank/', views.blank, name = 'blank'),
     url(r'^myjson/', views.myjson, name = 'myjson'),
 ]
+
+from django.conf import settings
+from django.conf.urls.static import static
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
