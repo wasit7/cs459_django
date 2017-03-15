@@ -1,3 +1,4 @@
+##restapi
 from rest_framework import viewsets
 from myapp.models import Customer, CustomerSerializer
 
