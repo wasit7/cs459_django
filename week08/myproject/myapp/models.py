@@ -8,16 +8,38 @@ from rest_framework import serializers
 class Customer(models.Model):
 	name=models.CharField(max_length=100, null=True, blank=True)
 	dob=models.DateField(null=True, blank=True)
+	def __unicode__(self):
+		return "%s: %s"%(self.id, self.name)
+
 class Car(models.Model):
 	model_name=models.CharField(max_length=100, null=True, blank=True)
 	price=models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
 	milage=models.FloatField(blank=True, null=True)
+	def __unicode__(self):
+		return "%s: %s"%(self.id, self.model_name)
+
 class Rent(models.Model):
 	customer=models.ForeignKey(Customer, on_delete=models.CASCADE)
 	car=models.ForeignKey(Car,  on_delete=models.CASCADE)
 	created=models.DateTimeField(auto_now_add=True)
 
 class CustomerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Customer
-        fields = ('name','dob')
+	class Meta:
+		model = Customer
+		fields = ('id','name','dob')
+
+class CarSerializer(serializers.ModelSerializer):
+	rent_count = serializers.SerializerMethodField('get_count')
+	def get_count(self, this):
+		return len( this.rent_set.all() )
+	class Meta:
+		model = Car
+		fields = ('id','model_name','price','milage','rent_count')
+
+class RentSerializer(serializers.ModelSerializer):
+	customer=CustomerSerializer()
+	car=CarSerializer()
+	class Meta:
+		model = Rent
+		fields = ('customer','car','created')
+		#dept=2
