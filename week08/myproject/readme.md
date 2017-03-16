@@ -59,7 +59,7 @@ urlpatterns = [
 ```
 
 # Methods
-|-------|----------|-----------|
+
 |method | with id | description|
 |-------|----------|-----------|
 |GET | no |listing all records |
