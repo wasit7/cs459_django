@@ -59,15 +59,15 @@ urlpatterns = [
 ```
 
 # Methods
----------------------
-method | with id | description
-----------------------------
-GET | no |listing all records
-GET | yes | get the item
-POST | no | creating an item
-PUT | yes | update the item
-PATCH | yes | update the item
-DELETE | yes | delete the item
+|-------|----------|-----------|
+|method | with id | description|
+|-------|----------|-----------|
+|GET | no |listing all records |
+|GET | yes | get the item |
+|POST | no | creating an item |
+|PUT | yes | update the item |
+|PATCH | yes | update the item |
+|DELETE | yes | delete the item |
 
 # End-points
 
