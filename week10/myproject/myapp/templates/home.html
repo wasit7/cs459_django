@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div ng-app="blank_app" ng-controller="blank_ctrl" >
+	<button type="button" class="btn btn-block" ng-click="my_click()">
+	  auto assign
+	</button>
+	Please wait until receiving the message.
+	[[message]]
+</div>
+
+
+{% endblock content %}
+{% block script %}
+
+<script>
+var app = angular.module('blank_app', [])//
+app.config(function($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+});
+app.config(function($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
+});
+
+app.controller('blank_ctrl', function($scope, $http) {
+    angular.element(document).ready(function () {
+	    $scope.my_click=function(){
+	    	console.log("Click!!")
+	        $http.post("{% url 'myapp:car-list' %}")
+	        .then(function(response) {
+	            $scope.message=response.data
+	            console.log( JSON.stringify($scope.message))
+	        });
+	    }
+	});
+});
+</script>
+{% endblock script %}
