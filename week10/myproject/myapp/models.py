@@ -29,12 +29,9 @@ class CustomerSerializer(serializers.ModelSerializer):
 		fields = ('id','name','dob')
 
 class CarSerializer(serializers.ModelSerializer):
-	rent_count = serializers.SerializerMethodField('get_count')
-	def get_count(self, this):
-		return len( this.rent_set.all() )
 	class Meta:
 		model = Car
-		fields = ('id','model_name','price','milage','rent_count')
+		fields = ('id','model_name','price','milage')
 
 class RentSerializer(serializers.ModelSerializer):
 	customer=CustomerSerializer()
@@ -43,3 +40,9 @@ class RentSerializer(serializers.ModelSerializer):
 		model = Rent
 		fields = ('customer','car','created')
 		#dept=2
+
+class CarFilterSerializer(serializers.Serializer):
+	min_price = serializers.IntegerField(required=False)
+	max_price = serializers.IntegerField(required=False)
+	min_milage = serializers.IntegerField(required=False)
+	max_milage = serializers.IntegerField(required=False)

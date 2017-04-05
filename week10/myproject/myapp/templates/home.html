@@ -1,11 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
 <div ng-app="blank_app" ng-controller="blank_ctrl" >
-	<button type="button" class="btn btn-block" ng-click="my_click()">
-	  auto assign
-	</button>
-	Please wait until receiving the message.
-	[[message]]
+	<div class="col-sm-3">
+		<div class="row">
+			<div class="col-sm-12">Min Price:</div>
+			<div class="col-sm-12">
+				<input type="range" max={{max_price}} step="1000" ng-change="my_click()" ng-model="min_price"/>
+			</div>
+			<div class="row">
+			</div>
+			<div class="col-sm-12">Max Price:</div>
+			<div class="col-sm-12">
+				<input type="range" max={{max_price}} step="1000" ng-change="my_click()" ng-model="max_price"/>
+			</div>
+		</div>
+		[[min_price]]-[[max_price]]
+		<div class="row">
+			<div class="col-sm-12">Min Milage:</div>
+			<div class="col-sm-12">
+				<input type="range" max={{max_milage}} step="1000" ng-change="my_click()" ng-model="min_milage"/>
+			</div>
+			<div class="row">
+			</div>
+			<div class="col-sm-12">Max Milage:</div>
+			<div class="col-sm-12">
+				<input type="range" max={{max_milage}} step="1000" ng-change="my_click()" ng-model="max_milage"/>
+			</div>
+		</div>
+		[[min_milage]]-[[max_milage]]
+	</div>
+	<div class="container-fluid">
+		<div class="col-sm-3 ">
+			<div ng-repeat="i in car_list"class="jumbotron">
+				<h4>[[i.model_name]]</h4>      
+				id: [[i.id]]<br>
+				price: [[i.price]]<br>
+				milage: [[i.milage]]<br>
+				rent count:[[i.rent_count]]
+				<button type="button" class="btn btn-primary">Primary</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 
@@ -26,11 +61,16 @@ app.config(function($interpolateProvider) {
 app.controller('blank_ctrl', function($scope, $http) {
     angular.element(document).ready(function () {
 	    $scope.my_click=function(){
-	    	console.log("Click!!")
-	        $http.post("{% url 'myapp:car-list' %}")
+	    	console.log("Click!!"+ $scope.min_price)
+	        $http.post("{% url 'myapp:car-list' %}filter/ ", {
+	        	min_price:$scope.min_price,
+	        	max_price:$scope.max_price,
+	        	min_milage:$scope.min_milage,
+	        	max_milage:$scope.max_milage
+	        })
 	        .then(function(response) {
-	            $scope.message=response.data
-	            console.log( JSON.stringify($scope.message))
+	            $scope.car_list=response.data
+	            console.log( JSON.stringify($scope.car_list))
 	        });
 	    }
 	});
