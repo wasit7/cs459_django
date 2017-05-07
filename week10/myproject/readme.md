@@ -59,9 +59,9 @@ urlpatterns = [
 ```
 
 # Methods
----------------------
+
 method | with id | description
-----------------------------
+-------|---------|-----------
 GET | no |listing all records
 GET | yes | get the item
 POST | no | creating an item
